@@ -19,12 +19,12 @@ export default function AmenitiesScreen() {
   const [selectedSlot, setSelectedSlot] = useState('');
 
   const amenities = [
-    { id: '1', name: 'Clubhouse', icon: 'business', color: '#4A90E2', available: 'Available' },
-    { id: '2', name: 'Swimming Pool', icon: 'water', color: '#3498DB', available: 'Available' },
-    { id: '3', name: 'Gym', icon: 'barbell', color: '#E74C3C', available: 'Booked' },
-    { id: '4', name: 'Tennis Court', icon: 'tennisball', color: '#27AE60', available: 'Available' },
-    { id: '5', name: 'Basketball Court', icon: 'basketball', color: '#F39C12', available: 'Available' },
-    { id: '6', name: 'Party Hall', icon: 'musical-notes', color: '#9B59B6', available: 'Available' },
+    { id: '1', name: 'Clubhouse', icon: 'business', color: '#FF9800', available: 'Available' },
+    { id: '2', name: 'Swimming Pool', icon: 'water', color: '#FF9800', available: 'Available' },
+    { id: '3', name: 'Gym', icon: 'barbell', color: '#FF9800', available: 'Booked' },
+    { id: '4', name: 'Tennis Court', icon: 'tennisball', color: '#FF9800', available: 'Available' },
+    { id: '5', name: 'Basketball Court', icon: 'basketball', color: '#FF9800', available: 'Available' },
+    { id: '6', name: 'Party Hall', icon: 'musical-notes', color: '#FF9800', available: 'Available' },
   ];
 
   const timeSlots = [
@@ -112,7 +112,7 @@ export default function AmenitiesScreen() {
           <Text style={styles.sectionTitle}>My Bookings</Text>
           <View style={styles.bookingCard}>
             <View style={styles.bookingHeader}>
-              <Ionicons name="business" size={24} color="#4A90E2" />
+              <Ionicons name="business" size={24} color="#FF9800" />
               <View style={styles.bookingInfo}>
                 <Text style={styles.bookingTitle}>Clubhouse</Text>
                 <Text style={styles.bookingDate}>Tomorrow, 06:00 PM - 08:00 PM</Text>
@@ -147,12 +147,12 @@ export default function AmenitiesScreen() {
               <Calendar
                 onDayPress={(day) => setSelectedDate(day.dateString)}
                 markedDates={{
-                  [selectedDate]: { selected: true, selectedColor: '#4A90E2' }
+                  [selectedDate]: { selected: true, selectedColor: '#FF9800' }
                 }}
                 minDate={new Date().toISOString().split('T')[0]}
                 theme={{
-                  todayTextColor: '#4A90E2',
-                  arrowColor: '#4A90E2',
+                  todayTextColor: '#FF9800',
+                  arrowColor: '#FF9800',
                 }}
               />
 
@@ -347,8 +347,8 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
   },
   slotChipSelected: {
-    backgroundColor: '#4A90E2',
-    borderColor: '#4A90E2',
+    backgroundColor: '#FF9800',
+    borderColor: '#FF9800',
   },
   slotText: {
     fontSize: 13,
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   confirmButton: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',

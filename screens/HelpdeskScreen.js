@@ -37,7 +37,7 @@ export default function HelpdeskScreen({ navigation }) {
       case 'resolved':
         return '#27AE60';
       case 'in-progress':
-        return '#4A90E2';
+        return '#FF9800';
       case 'pending':
         return '#F39C12';
       default:
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   addButton: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   emptyButton: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     paddingHorizontal: 30,
     paddingVertical: 12,
     borderRadius: 25,

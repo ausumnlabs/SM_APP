@@ -29,7 +29,7 @@ export default function PaymentsScreen() {
         <View style={styles.section}>
           <View style={styles.dueCard}>
             <View style={styles.dueHeader}>
-              <Ionicons name="wallet" size={32} color="#4A90E2" />
+              <Ionicons name="wallet" size={32} color="#FF9800" />
               <Text style={styles.dueLabel}>Current Due</Text>
             </View>
             <Text style={styles.dueAmount}>₹{dueAmount.toLocaleString()}</Text>
@@ -73,7 +73,7 @@ export default function PaymentsScreen() {
           <Text style={styles.sectionTitle}>Payment Methods</Text>
           <TouchableOpacity style={styles.methodCard}>
             <View style={styles.methodIcon}>
-              <Ionicons name="card-outline" size={24} color="#4A90E2" />
+              <Ionicons name="card-outline" size={24} color="#FF9800" />
             </View>
             <View style={styles.methodInfo}>
               <Text style={styles.methodTitle}>Credit/Debit Card</Text>
@@ -84,7 +84,7 @@ export default function PaymentsScreen() {
 
           <TouchableOpacity style={styles.methodCard}>
             <View style={styles.methodIcon}>
-              <Ionicons name="phone-portrait-outline" size={24} color="#4A90E2" />
+              <Ionicons name="phone-portrait-outline" size={24} color="#FF9800" />
             </View>
             <View style={styles.methodInfo}>
               <Text style={styles.methodTitle}>UPI</Text>
@@ -95,7 +95,7 @@ export default function PaymentsScreen() {
 
           <TouchableOpacity style={styles.methodCard}>
             <View style={styles.methodIcon}>
-              <Ionicons name="business-outline" size={24} color="#4A90E2" />
+              <Ionicons name="business-outline" size={24} color="#FF9800" />
             </View>
             <View style={styles.methodInfo}>
               <Text style={styles.methodTitle}>Net Banking</Text>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   viewAllText: {
     fontSize: 14,
-    color: '#4A90E2',
+    color: '#FF9800',
     fontWeight: '600',
   },
   dueCard: {
@@ -182,12 +182,12 @@ const styles = StyleSheet.create({
   },
   payButton: {
     flexDirection: 'row',
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#4A90E2',
+    shadowColor: '#FF9800',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

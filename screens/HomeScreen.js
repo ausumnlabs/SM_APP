@@ -6,17 +6,17 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ navigation }) {
   const [userName, setUserName] = useState('John Doe');
-  const [flatNumber, setFlatNumber] = useState('A-101');
+  const [flatNumber, setFlatNumber] = useState('Tower 1 1306');
   const [stats, setStats] = useState({
-    visitors: 0,
-    complaints: 0,
-    dues: 0,
+    visitors: 7,
+    updates: 3,
   });
 
   useEffect(() => {
@@ -31,128 +31,186 @@ export default function HomeScreen({ navigation }) {
     try {
       const visitors = await AsyncStorage.getItem('visitors');
       const complaints = await AsyncStorage.getItem('complaints');
+      const userData = await AsyncStorage.getItem('userData');
+      
+      if (userData) {
+        const user = JSON.parse(userData);
+        setUserName(user.name || 'John Doe');
+      }
       
       if (visitors) {
         const visitorsList = JSON.parse(visitors);
         setStats(prev => ({ ...prev, visitors: visitorsList.length }));
-      }
-      
-      if (complaints) {
-        const complaintsList = JSON.parse(complaints);
-        setStats(prev => ({ ...prev, complaints: complaintsList.length }));
       }
     } catch (error) {
       console.error('Error loading data:', error);
     }
   };
 
-  const QuickActionCard = ({ icon, title, color, onPress }) => (
+  const QuickActionCard = ({ icon, title, color, badge, onPress }) => (
     <TouchableOpacity style={styles.actionCard} onPress={onPress}>
-      <View style={[styles.iconContainer, { backgroundColor: color + '20' }]}>
-        <Ionicons name={icon} size={30} color={color} />
+      <View style={[styles.iconContainer, { backgroundColor: color || '#F5F5F5' }]}>
+        <Ionicons name={icon} size={26} color={color ? '#fff' : '#333'} />
+        {badge && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{badge}</Text>
+          </View>
+        )}
       </View>
       <Text style={styles.actionText}>{title}</Text>
     </TouchableOpacity>
-  );
-
-  const StatCard = ({ title, value, icon, color }) => (
-    <View style={styles.statCard}>
-      <View style={[styles.statIcon, { backgroundColor: color + '20' }]}>
-        <Ionicons name={icon} size={24} color={color} />
-      </View>
-      <View style={styles.statInfo}>
-        <Text style={styles.statValue}>{value}</Text>
-        <Text style={styles.statTitle}>{title}</Text>
-      </View>
-    </View>
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <View>
-            <Text style={styles.welcomeText}>Welcome back,</Text>
-            <Text style={styles.userName}>{userName}</Text>
+          <View style={styles.headerLeft}>
             <Text style={styles.flatNumber}>{flatNumber}</Text>
+            <Text style={styles.adSupported}>Ad-Supported</Text>
           </View>
-          <TouchableOpacity style={styles.notificationIcon}>
-            <Ionicons name="notifications-outline" size={24} color="#333" />
-            <View style={styles.badge} />
+          <View style={styles.headerRight}>
+            <TouchableOpacity 
+              style={styles.headerIcon}
+              onPress={() => navigation.navigate('Search')}
+            >
+              <Ionicons name="search-outline" size={24} color="#333" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.headerIcon}>
+              <Ionicons name="chatbubble-outline" size={24} color="#333" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.profileIcon}>
+              <Text style={styles.profileText}>AM</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.addressCard}>
+          <Text style={styles.addressText}>
+            Tower 1-1306, Prestige Lakeside Habitat
+          </Text>
+          <TouchableOpacity>
+            <Ionicons name="chevron-down" size={20} color="#666" />
           </TouchableOpacity>
         </View>
 
+        <TouchableOpacity style={styles.addFlatButton}>
+          <Ionicons name="add-circle-outline" size={24} color="#333" />
+          <Text style={styles.addFlatText}>Add Flat/Villa/Office</Text>
+        </TouchableOpacity>
+
+        <View style={styles.bannerImage}>
+          <View style={styles.adBadge}>
+            <Text style={styles.adBadgeText}>Ad</Text>
+          </View>
+        </View>
+
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Quick Actions</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('QuickActions')}>
+              <Ionicons name="apps" size={24} color="#FF9800" />
+              <Text style={styles.customizeText}>Customise</Text>
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.actionsGrid}>
             <QuickActionCard
               icon="person-add-outline"
-              title="Add Visitor"
-              color="#4A90E2"
+              title="Pre-Approve"
+              color="#8E44AD"
               onPress={() => navigation.navigate('VisitorsTab', { screen: 'AddVisitor' })}
             />
             <QuickActionCard
-              icon="calendar-outline"
-              title="Book Amenity"
+              icon="wallet-outline"
+              title="Payments"
+              color="#3498DB"
+            />
+            <QuickActionCard
+              icon="chatbubbles-outline"
+              title="Helpdesk"
               color="#E74C3C"
+              onPress={() => navigation.navigate('HelpdeskTab', { screen: 'Helpdesk' })}
+            />
+            <QuickActionCard
+              icon="calendar-outline"
+              title="Amenities"
+              color="#9B59B6"
               onPress={() => navigation.navigate('Services')}
             />
             <QuickActionCard
-              icon="megaphone-outline"
-              title="Noticeboard"
-              color="#F39C12"
-              onPress={() => navigation.navigate('Services')}
+              icon="card-outline"
+              title="Get SBI Card"
+              color="#2ECC71"
             />
             <QuickActionCard
-              icon="chatbubble-outline"
-              title="Raise Issue"
+              icon="document-text-outline"
+              title="Notices"
+              badge="38"
+              onPress={() => navigation.navigate('Noticeboard')}
+            />
+            <QuickActionCard
+              icon="sparkles-outline"
+              title="Cleaning Ess..."
               color="#27AE60"
-              onPress={() => navigation.navigate('HelpdeskTab', { screen: 'AddComplaint' })}
+            />
+            <QuickActionCard
+              icon="add-circle-outline"
+              title="View More"
+              color="#FFD700"
+              onPress={() => navigation.navigate('QuickActions')}
             />
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Overview</Text>
-          <StatCard
-            title="Active Visitors"
-            value={stats.visitors}
-            icon="people"
-            color="#4A90E2"
-          />
-          <StatCard
-            title="Open Complaints"
-            value={stats.complaints}
-            icon="alert-circle"
-            color="#E74C3C"
-          />
-          <StatCard
-            title="Pending Dues"
-            value={`₹${stats.dues}`}
-            icon="wallet"
-            color="#F39C12"
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Recent Activity</Text>
-          <View style={styles.activityCard}>
-            <View style={styles.activityIcon}>
-              <Ionicons name="checkmark-circle" size={20} color="#27AE60" />
-            </View>
-            <View style={styles.activityContent}>
-              <Text style={styles.activityTitle}>Visitor approved</Text>
-              <Text style={styles.activityTime}>2 hours ago</Text>
+        <View style={styles.visitorSection}>
+          <View style={styles.visitorHeader}>
+            <View style={styles.visitorStats}>
+              <Ionicons name="people" size={16} color="#333" />
+              <Text style={styles.visitorStatsText}>{stats.visitors} Visitors</Text>
+              <Text style={styles.visitorStatsSeparator}>and</Text>
+              <Ionicons name="notifications" size={16} color="#333" />
+              <Text style={styles.visitorStatsText}>{stats.updates} Updates</Text>
             </View>
           </View>
-          <View style={styles.activityCard}>
-            <View style={styles.activityIcon}>
-              <Ionicons name="cash" size={20} color="#4A90E2" />
-            </View>
-            <View style={styles.activityContent}>
-              <Text style={styles.activityTitle}>Maintenance paid</Text>
-              <Text style={styles.activityTime}>3 days ago</Text>
-            </View>
+
+          <View style={styles.visitorUpdates}>
+            <Text style={styles.visitorUpdatesTitle}>Visitor Updates</Text>
+            <TouchableOpacity>
+              <Text style={styles.viewAllLink}>View All</Text>
+              <Ionicons name="chevron-forward" size={16} color="#FF9800" />
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.visitorList}>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <View key={i} style={styles.visitorCard}>
+                <View style={styles.visitorAvatar}>
+                  <Ionicons name="person" size={24} color="#666" />
+                </View>
+                <Text style={styles.visitorName}>Visitor{i}+1</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+        <View style={styles.paymentCard}>
+          <View style={styles.paymentIcon}>
+            <Ionicons name="wallet" size={24} color="#FF9800" />
+          </View>
+          <View style={styles.paymentInfo}>
+            <Text style={styles.paymentAmount}>₹4,718.08</Text>
+            <Text style={styles.paymentText}>Tap to Settle Now! Please ignore if already paid.</Text>
+          </View>
+        </View>
+
+        <View style={styles.eventCard}>
+          <View style={styles.eventIcon}>
+            <Ionicons name="calendar" size={20} color="#FF9800" />
+          </View>
+          <View style={styles.eventInfo}>
+            <Text style={styles.eventTitle}>Shweta is hosting a new event!</Text>
+            <Text style={styles.eventSubtitle}>💃 *Shweta Dance Classes* 💃</Text>
           </View>
         </View>
       </ScrollView>
@@ -169,130 +227,282 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
+    backgroundColor: '#E8E0D5',
+  },
+  headerLeft: {
+    flex: 1,
+  },
+  flatNumber: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  adSupported: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 2,
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerIcon: {
+    marginLeft: 15,
+  },
+  profileIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#A0916D',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 15,
+  },
+  profileText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  addressCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#fff',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    padding: 15,
+    marginHorizontal: 15,
+    marginTop: -20,
+    borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
-  welcomeText: {
+  addressText: {
     fontSize: 14,
-    color: '#666',
-  },
-  userName: {
-    fontSize: 24,
-    fontWeight: 'bold',
     color: '#333',
-    marginTop: 4,
+    flex: 1,
   },
-  flatNumber: {
+  addFlatButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    marginHorizontal: 15,
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    borderStyle: 'dashed',
+  },
+  addFlatText: {
     fontSize: 14,
-    color: '#4A90E2',
-    marginTop: 2,
+    color: '#333',
+    marginLeft: 10,
   },
-  notificationIcon: {
-    padding: 8,
+  bannerImage: {
+    height: 150,
+    backgroundColor: '#4A6572',
+    marginHorizontal: 15,
+    marginTop: 15,
+    borderRadius: 12,
+    position: 'relative',
   },
-  badge: {
+  adBadge: {
     position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 8,
-    height: 8,
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 4,
-    backgroundColor: '#E74C3C',
+  },
+  adBadgeText: {
+    fontSize: 11,
+    color: '#fff',
+    fontWeight: '600',
   },
   section: {
-    padding: 20,
+    padding: 15,
+    marginTop: 10,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 15,
+  },
+  customizeText: {
+    fontSize: 12,
+    color: '#FF9800',
+    marginTop: 2,
   },
   actionsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    marginHorizontal: -5,
   },
   actionCard: {
-    width: '48%',
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
+    width: '25%',
     alignItems: 'center',
-    marginBottom: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
   },
   iconContainer: {
     width: 60,
     height: 60,
-    borderRadius: 30,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 6,
+    position: 'relative',
+  },
+  badge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    backgroundColor: '#E74C3C',
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 5,
+  },
+  badgeText: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   actionText: {
-    fontSize: 13,
-    fontWeight: '600',
+    fontSize: 11,
     color: '#333',
     textAlign: 'center',
+    fontWeight: '500',
   },
-  statCard: {
-    flexDirection: 'row',
+  visitorSection: {
     backgroundColor: '#fff',
+    marginHorizontal: 15,
+    marginTop: 10,
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+    padding: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
     elevation: 2,
   },
-  statIcon: {
+  visitorHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  visitorStats: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  visitorStatsText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+    marginLeft: 5,
+  },
+  visitorStatsSeparator: {
+    fontSize: 14,
+    color: '#666',
+    marginHorizontal: 8,
+  },
+  visitorUpdates: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  visitorUpdatesTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#333',
+  },
+  viewAllLink: {
+    fontSize: 13,
+    color: '#FF9800',
+    fontWeight: '600',
+  },
+  visitorList: {
+    marginHorizontal: -15,
+    paddingHorizontal: 15,
+  },
+  visitorCard: {
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  visitorAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#F5F7FA',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  visitorName: {
+    fontSize: 12,
+    color: '#333',
+  },
+  paymentCard: {
+    flexDirection: 'row',
+    backgroundColor: '#FFF3E0',
+    marginHorizontal: 15,
+    marginTop: 15,
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  paymentIcon: {
     width: 50,
     height: 50,
     borderRadius: 25,
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
   },
-  statInfo: {
-    justifyContent: 'center',
+  paymentInfo: {
+    flex: 1,
   },
-  statValue: {
-    fontSize: 22,
+  paymentAmount: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
+    marginBottom: 4,
   },
-  statTitle: {
-    fontSize: 14,
+  paymentText: {
+    fontSize: 13,
     color: '#666',
-    marginTop: 2,
+    lineHeight: 18,
   },
-  activityCard: {
+  eventCard: {
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: 12,
+    marginHorizontal: 15,
+    marginTop: 15,
+    marginBottom: 20,
     padding: 15,
-    marginBottom: 10,
+    borderRadius: 12,
+    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
   },
-  activityIcon: {
+  eventIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -301,18 +511,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 12,
   },
-  activityContent: {
+  eventInfo: {
     flex: 1,
-    justifyContent: 'center',
   },
-  activityTitle: {
+  eventTitle: {
     fontSize: 14,
     fontWeight: '600',
     color: '#333',
+    marginBottom: 4,
   },
-  activityTime: {
-    fontSize: 12,
-    color: '#999',
-    marginTop: 2,
+  eventSubtitle: {
+    fontSize: 13,
+    color: '#666',
   },
 });

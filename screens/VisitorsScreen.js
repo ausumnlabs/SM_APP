@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   addButton: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4A90E2',
+    color: '#FF9800',
     marginLeft: 6,
   },
   emptyContainer: {
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   emptyButton: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     paddingHorizontal: 30,
     paddingVertical: 12,
     borderRadius: 25,

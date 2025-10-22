@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
   },
   categoryChipSelected: {
-    backgroundColor: '#4A90E2',
-    borderColor: '#4A90E2',
+    backgroundColor: '#FF9800',
+    borderColor: '#FF9800',
   },
   categoryText: {
     fontSize: 14,
@@ -187,13 +187,13 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     flexDirection: 'row',
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
-    shadowColor: '#4A90E2',
+    shadowColor: '#FF9800',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

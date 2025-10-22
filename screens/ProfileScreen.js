@@ -17,7 +17,7 @@ export default function ProfileScreen() {
   const MenuItem = ({ icon, title, subtitle, onPress, showArrow = true }) => (
     <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <View style={styles.menuIcon}>
-        <Ionicons name={icon} size={22} color="#4A90E2" />
+        <Ionicons name={icon} size={22} color="#FF9800" />
       </View>
       <View style={styles.menuContent}>
         <Text style={styles.menuTitle}>{title}</Text>
@@ -75,13 +75,13 @@ export default function ProfileScreen() {
             <Switch
               value={notificationsEnabled}
               onValueChange={setNotificationsEnabled}
-              trackColor={{ false: '#E5E5E5', true: '#4A90E2' }}
+              trackColor={{ false: '#E5E5E5', true: '#FF9800' }}
               thumbColor="#fff"
             />
           </View>
           <View style={styles.menuItem}>
             <View style={styles.menuIcon}>
-              <Ionicons name="mail-outline" size={22} color="#4A90E2" />
+              <Ionicons name="mail-outline" size={22} color="#FF9800" />
             </View>
             <View style={styles.menuContent}>
               <Text style={styles.menuTitle}>Email Alerts</Text>
@@ -90,7 +90,7 @@ export default function ProfileScreen() {
             <Switch
               value={emailAlerts}
               onValueChange={setEmailAlerts}
-              trackColor={{ false: '#E5E5E5', true: '#4A90E2' }}
+              trackColor={{ false: '#E5E5E5', true: '#FF9800' }}
               thumbColor="#fff"
             />
           </View>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F0F8FF',
+    backgroundColor: '#FFF3E0',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,

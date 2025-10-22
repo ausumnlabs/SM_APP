@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   addButton: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#FF9800',
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4A90E2',
+    color: '#FF9800',
     marginLeft: 6,
   },
 });
