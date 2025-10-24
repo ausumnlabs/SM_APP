@@ -120,6 +120,31 @@ function MainApp() {
         tabBarActiveTintColor: '#FF9800',
         tabBarInactiveTintColor: 'gray',
         headerShown: false,
+        tabBarStyle: {
+          height: 48, // Slightly reduced height
+          paddingBottom: 1, // Further reduced bottom padding
+          paddingTop: 2,   // Reduced top padding
+          backgroundColor: '#fff',
+          borderTopWidth: 1,
+          borderTopColor: '#E5E5E5',
+          position: 'absolute',
+          left: 10,       // Add some margin from sides
+          right: 10,      // Add some margin from sides
+          bottom: -2,      // Move up more from the very bottom
+          borderRadius: 15, // Rounded corners
+          elevation: 8,   // Slightly more elevation for better visibility
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 6,
+        },
+        tabBarItemStyle: {
+          paddingVertical: 2, // Reduced vertical padding to make more compact
+        },
+        tabBarLabelStyle: {
+          fontSize: 11, // Slightly smaller font size
+          marginBottom: 4, // Adjust space between icon and label
+        },
       })}
     >
       <Tab.Screen 
