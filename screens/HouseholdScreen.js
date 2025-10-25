@@ -59,18 +59,10 @@ export default function HouseholdScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="#333" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Household</Text>
-        <View style={{ width: 24 }} />
-      </View>
-
+      <View style={styles.header} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.section}>
           <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionHeaderTitle}>Household</Text>
             <TouchableOpacity>
               <Text style={styles.manageAllText}>Manage</Text>
             </TouchableOpacity>
@@ -152,18 +144,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F7FA',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 20,
+    padding: 8,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
   },
   section: {
     padding: 20,

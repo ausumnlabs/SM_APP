@@ -207,7 +207,6 @@ export default function HomeScreen({ navigation }) {
                 icon="home-search-outline"
                 title="Find Homes"
               />
-              />
             </View>
           </View>
 
