@@ -25,7 +25,7 @@ import HouseholdScreen from './screens/HouseholdScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import DevicesScreen from './screens/DevicesScreen';
 import MarketplaceScreen from './screens/MarketplaceScreen';
-import SocialScreen from './screens/SocialScreen';
+import ServicesScreen from './screens/SocialScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
 
 const Tab = createBottomTabNavigator();
@@ -161,7 +161,7 @@ function HelpdeskStack() {
   );
 }
 
-function SocialStack() {
+function ServicesStack() {
   return (
     <Stack.Navigator 
       screenOptions={{
@@ -170,10 +170,10 @@ function SocialStack() {
       }}
     >
       <Stack.Screen 
-        name="SocialHome" 
-        component={SocialScreen}
+        name="ServicesHome" 
+        component={ServicesScreen}
         options={{ 
-          title: 'Community',
+          title: 'Services',
           headerShown: true
         }}
       />
@@ -204,8 +204,8 @@ function MainApp() {
             iconName = focused ? 'phone-portrait' : 'phone-portrait-outline';
           } else if (route.name === 'Marketplace') {
             iconName = focused ? 'bag' : 'bag-outline';
-          } else if (route.name === 'Social') {
-            iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+          } else if (route.name === 'Services') {
+            iconName = focused ? 'grid' : 'grid-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -261,9 +261,9 @@ function MainApp() {
         options={{ title: 'Marketplace' }}
       />
       <Tab.Screen 
-        name="Social" 
-        component={SocialStack}
-        options={{ title: 'Social' }}
+        name="Services" 
+        component={ServicesStack}
+        options={{ title: 'Services' }}
       />
     </Tab.Navigator>
   );
